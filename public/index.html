@@ -52,7 +52,14 @@
           }
         });
       }
-      getUsersCurrentLocation().then((p) => console.log({ p }));
+      //   getUsersCurrentLocation().then((p) => console.log({ p }));
+      async function main() {
+        const userLocation = await getUsersCurrentLocation();
+        L.marker([userLocation.latitude, userLocation.longitude])
+          .addTo(map)
+          .bindPopup("You are here!");
+      }
+      window.addEventListener("load", main);
     </script>
   </body>
 </html>
