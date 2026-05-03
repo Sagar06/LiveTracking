@@ -31,6 +31,28 @@
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }).addTo(map);
+
+      function getUsersCurrentLocation() {
+        return new Promise((res, rej) => {
+          if ("geolocation in navigator") {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                console.log(`Got users location`, position);
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                res({ latitude, longitude });
+              },
+              (err) => {
+                rej(err);
+              },
+              { enableHighAccuracy: true },
+            );
+          } else {
+            alert("Geolocation is not in browser");
+          }
+        });
+      }
+      getUsersCurrentLocation().then((p) => console.log({ p }));
     </script>
   </body>
 </html>
